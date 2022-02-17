@@ -7,7 +7,8 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__/
-ExecStart=node __FINALPATH__/app.js -c __FINALPATH__/config.yaml
+Environment="__YNH_NODE_LOAD_PATH__"
+ExecStart=__FINALPATH__/bin/matrix-appservice-irc -c __FINALPATH__/config.yaml
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 

@@ -2,8 +2,6 @@ This is an IRC bridge for Matrix. This bridge will pass all IRC messages through
 
 ### Features
 
-- Ut enim ad minim veniam, quis nostrud exercitation ullamco ;
-- Laboris nisi ut aliquip ex ea commodo consequat ;
-- Duis aute irure dolor in reprehenderit in voluptate ;
-- Velit esse cillum dolore eu fugiat nulla pariatur ;
-- Excepteur sint occaecat cupidatat non proident, sunt in culpa."
+- Merge Matrix rooms to IRC channels
+- Full two-way communication in channels and direct messages
+- Well-formated replies
