@@ -1,5 +1,5 @@
-SOURCE_URL=url of app's source
-SOURCE_SUM=sha256 checksum
+SOURCE_URL=https://github.com/matrix-org/matrix-appservice-irc/archive/refs/tags/0.32.1.tar.gz
+SOURCE_SUM=b3a9fec362e6dda535043c1edfcb2f405e5690e2e0d25f99db903d164a10774e
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true

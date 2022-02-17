@@ -1,4 +1,4 @@
-Some long and extensive description of what the app is and does, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+This is an IRC bridge for Matrix. This bridge will pass all IRC messages through to Matrix, and all Matrix messages through to IRC. It is highly configurable and is currently used on the matrix.org homeserver to bridge a number of popular IRC networks.
 
 ### Features
 
