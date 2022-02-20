@@ -20,7 +20,7 @@ Ceci est une passerelle IRC pour Matrix. Cette passerelle passe tous les message
 - Réponses formattées proprement
 
 
-**Version incluse :** 0.32.1~ynh1
+**Version incluse :** 0.32.1~ynh2
 
 
 

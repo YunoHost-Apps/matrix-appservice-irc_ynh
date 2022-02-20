@@ -24,7 +24,7 @@ This is an IRC bridge for Matrix. This bridge will pass all IRC messages through
 - Well-formated replies
 
 
-**Shipped version:** 0.32.1~ynh1
+**Shipped version:** 0.32.1~ynh2
 
 
 
