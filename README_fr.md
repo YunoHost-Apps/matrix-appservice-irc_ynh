@@ -37,7 +37,6 @@ ATTENTION : Cette passerelle requiert une configuration supplémentaire dans son
 
 ## Documentations et ressources
 
-* Site officiel de l’app : <https://github.com/matrix-org/matrix-appservice-irc>
 * Documentation officielle utilisateur : <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>
 * Documentation officielle de l’admin : <https://matrix-org.github.io/matrix-appservice-irc/latest/bridge_setup>
 * Dépôt de code officiel de l’app : <https://github.com/matrix-org/matrix-appservice-irc>

@@ -37,7 +37,6 @@ WARNING: This bridge requires additional configuration in the configuration file
 
 ## Documentation and resources
 
-* Official app website: <https://github.com/matrix-org/matrix-appservice-irc>
 * Official user documentation: <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>
 * Official admin documentation: <https://matrix-org.github.io/matrix-appservice-irc/latest/bridge_setup>
 * Upstream app code repository: <https://github.com/matrix-org/matrix-appservice-irc>
