@@ -13,7 +13,7 @@ nodejs_version=18
 __ynh_register_synapse_app_service() {
     "$install_dir/bin/matrix-appservice-irc" -r \
         -c "$install_dir/config.yaml" \
-        -u "http://localhost:$port" \
+        -u "http://127.0.0.1:$port" \
         -f "$install_dir/appservice-registration-irc.yaml"
 
     # This appservice needs it to be duplicated…
