@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # Matrix IRC Bridge pour YunoHost
 
 [![Niveau d’intégration](https://dash.yunohost.org/integration/matrix-appservice-irc.svg)](https://dash.yunohost.org/appci/app/matrix-appservice-irc) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.maintain.svg)
+
 [![Installer Matrix IRC Bridge avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matrix-appservice-irc)
 
 *[Read this readme in english.](./README.md)*
