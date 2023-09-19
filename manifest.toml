@@ -1,0 +1,113 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "matrix-appservice-irc"
+name = "Matrix IRC Bridge"
+description.en = "Matrix bridge for IRC"
+description.fr = "Passerelle Matrix pour IRC"
+
+version = "0.36.0~ynh1"
+
+maintainers = ["Salamandar"]
+
+[upstream]
+license = "Apache-2.0"
+code = "https://github.com/matrix-org/matrix-appservice-irc"
+admindoc = "https://matrix-org.github.io/matrix-appservice-irc/latest/bridge_setup"
+userdoc = "https://matrix-org.github.io/matrix-appservice-irc/latest/usage"
+
+[integration]
+yunohost = ">= 11.1"
+architectures = "all"
+multi_instance = true
+ldap = false
+sso = false
+disk = "100M"
+ram.build = "256M"
+ram.runtime = "1024M"
+
+[install]
+    [install.synapse_instance]
+    ask.en = "Choose the local Synapse instance to communicate with matrix-appservice-irc."
+    ask.fr = "Choisissez l'instance Synapse qui doit communiquer avec matrix-appservice-irc."
+    type = "app"
+    pattern.regexp = "synapse(__)*[0-9]*"
+    pattern.error = "Invalid app selected. Please select a Synapse instance."
+    help.en = "Usually the Synapse instances contain a number after it is installed more than one time. E.g. synapse__1 will be the second instance."
+    help.fr = "En général, les instances de Synapse contiennent un numéro après avoir été installées plus d'une fois. Par exemple, synapse__1 sera la deuxième instance."
+    default = "synapse"
+
+    [install.botname]
+    ask.en = "Choose a local Synapse user name for the irc bot"
+    ask.fr = "Choisissez un nom d'utilisateur Synapse local pour le robot irc"
+    help.en = "A system user will be created. Invite @ircmatrixbot:localsynapse.servername from an authorized Matrix account to start bridging. Give the Matrix server_name, not the full domain/URL."
+    help.fr = "Un utilisateur système sera créé. Inviter @ircmatrixbot:localsynapse.servername depuis un compte Matrix autorisé pour démarrer une passerelle. Donner le nom du serveur Matrix, pas le domaine/URL complet."
+    type = "string"
+    example = "ircmatrixbot"
+    default = "ircmatrixbot"
+
+    [install.bot_synapse_adm]
+    ask.en = "Give the IRC bot administrator rights to the Synapse instance?"
+    ask.fr = "Donner au robot IRC des droits administrateur à l'instance Synapse ?"
+    type = "boolean"
+    help.en = "If true, the bot can group IRC chats in a Matrix space.Not required if you set up Synapse so that non-admins are authorized to create communities."
+    help.fr = "Si true, le robot groupera les conversations IRC dans une communauté Matrix.Pas nécessaire si vous avez réglé Synapse pour qu'il autorise les non-admin à créer des communautés."
+    default = true
+
+    # TODO: is it supported?
+    # [install.encryption]
+    # ask.en = "Enable end-to-bridge encryption?"
+    # ask.fr = "Activer le chiffrement entre Synapse et le bridge ?"
+    # type = "boolean"
+    # help.en = "Only activate if you know the prerequisites and constraints related to E2B."
+    # help.fr = "N'activer que si vous connaissez les prérequis et constraintes liées à E2B."
+    # default = true
+
+    [install.botadmin]
+    ask.en = "Choose the Matrix account administrator of the IRC bot"
+    ask.fr = "Choisissez le compte Matrix administrateur du robot IRC"
+    type = "string"
+    example = "@johndoe:localsynapse.servername or @johndoe:matrix.org"
+    help.en = "The administrator does not need to be a local Synapse account. Valid formats are @johndoe:localsynapse.servername or @johndoe:matrix.org"
+    help.fr = "L'administrateur peut ne pas être un compte local Synapse. Les formats valables sont @johndoe:localsynapse.servername or @johndoe:matrix.org"
+
+    [install.botusers]
+    ask.en = "Choose Matrix user(s) authorized to bridge with the IRC bot."
+    ask.fr = "Choisissez le/les compte(s) Matrix autorisés à utiliser la passerelle IRC."
+    type = "string"
+    example = "@johndoe:server.name or server.name or *"
+    help.en = """
+    A remote or local user (@johndoe:server.name),the local server (server.name), a remote server (matrix.org), or all remote/local servers (*) can be authorized.
+    Give the Matrix server_name, not the full domain/URL.
+    It is also possible to specify multiple values by separating them with comma. Example: @johndoe:server.name,domain.tld,matrix.org"""
+    help.fr = """Un compte local ou distant (@johndoe:server.name), le serveur local (server.name), un serveur distant (matrix.org), ou tous les serveurs remote/local (*).
+    Donner le nom du serveur Matrix, pas le domaine/URL complet.
+    Il est également possible de spécifier plusieurs valeurs en les séparant par une virgule. Exemple : @johndoe:server.name,domain.tld,matrix.org"""
+
+
+[resources]
+    [resources.sources.main]
+    url = "https://github.com/matrix-org/matrix-appservice-irc/archive/refs/tags/1.0.1.tar.gz"
+    sha256 = "ac58ca1e7ed1a496b0ec69cd7079f67c2e3ad5007f24bdacd63fc992cc442ce3"
+
+    [resources.system_user]
+    home = "/opt/yunohost/__APP__"
+
+    [resources.install_dir]
+    dir = "/opt/yunohost/__APP__"
+
+    [resources.permissions]
+    main.allowed = "all_users"
+    main.auth_header = false
+
+    [resources.ports]
+    main.default = 8095
+
+    [resources.apt]
+    packages = [
+        "postgresql",
+    ]
+
+    [resources.database]
+    type = "postgresql"

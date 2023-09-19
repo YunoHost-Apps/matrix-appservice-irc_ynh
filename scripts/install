@@ -9,50 +9,28 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
-#=================================================
-# MANAGE SCRIPT FAILURE
-#=================================================
-
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
-
-#=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
-#=================================================
-
-synapsenumber=$YNH_APP_ARG_SYNAPSENUMBER
-botname=$YNH_APP_ARG_BOTNAME
-botadmin=$YNH_APP_ARG_BOTADMIN
-app=$YNH_APP_INSTANCE_NAME
-
-if [ "$synapsenumber" == "1" ]; then
-	synapse_instance="synapse"
-else
-	synapse_instance="synapse__$synapsenumber"
-fi
-
-domain=$(ynh_app_setting_get --app "$synapse_instance" --key domain)
+# Retrieve some values from selected Synapse instance and store them
 server_name=$(ynh_app_setting_get --app "$synapse_instance" --key server_name)
+domain=$(ynh_app_setting_get --app "$synapse_instance" --key domain)
+ynh_app_setting_set --app="$app" --key=server_name --value="$server_name"
+ynh_app_setting_set --app="$app" --key=domain --value="$domain"
+synapse_db_name="matrix_$synapse_instance"
 
-#=================================================
-# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
-#=================================================
-ynh_script_progression --message="Validating installation parameters..." --weight=1
-
-final_path=/opt/yunohost/$app
-test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
-ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+# This is needed to convert the value from the manifest to a valid value for the config.yaml file.
+# Without this the install script will throw a warning.
+if [ "$encryption" -eq "1" ]; then
+    encryption="true"
+else
+    encryption="false"
+fi
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
-ynh_app_setting_set --app=$app --key=domain --value=$domain
-ynh_app_setting_set --app=$app --key=server_name --value=$server_name
 ynh_app_setting_set --app=$app --key=botname --value=$botname
 ynh_app_setting_set --app=$app --key=synapse_instance --value=$synapse_instance
-ynh_app_setting_set --app=$app --key=botadmin --value=$botadmin
 
 #=================================================
 # SET CONSTANTS
@@ -60,48 +38,14 @@ ynh_app_setting_set --app=$app --key=botadmin --value=$botadmin
 
 enable_relaybot=true
 bot_synapse_db_user="@$botname:$server_name"
-synapse_db_name="matrix_$synapse_instance"
-
-#=================================================
-# STANDARD MODIFICATIONS
-#=================================================
-# FIND AND OPEN A PORT
-#=================================================
-ynh_script_progression --message="Finding an available port..." --weight=1
-
-# Find an available port for communication between the local synapse instance (home server) and the bridge app service.
-port=$(ynh_find_port --port=8095)
-ynh_app_setting_set --app=$app --key=port --value=$port
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=1
+ynh_script_progression --message="Installing NodeJS..." --weight=1
 
-ynh_install_app_dependencies $pkg_dependencies
 ynh_install_nodejs --nodejs_version=$nodejs_version
-
 ynh_use_nodejs
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Configuring system user..." --weight=1
-
-# Create a system user
-ynh_system_user_create --username=$app --home_dir="$final_path"
-
-#=================================================
-# CREATE A POSTGRESQL DATABASE
-#=================================================
-ynh_script_progression --message="Creating a PostgreSQL database..." --weight=2
-
-db_name=$(ynh_sanitize_dbid --db_name=$app)
-ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-db_pwd=$(ynh_string_random --length=30)
-ynh_app_setting_set --app=$app --key=db_pwd --value=$db_pwd
-ynh_psql_test_if_first_run
-ynh_psql_setup_db --db_user=$db_name --db_name=$db_name --db_pwd=$db_pwd
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -109,33 +53,36 @@ ynh_psql_setup_db --db_user=$db_name --db_name=$db_name --db_pwd=$db_pwd
 ynh_script_progression --message="Setting up source files and building the app..." --weight=3
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$final_path"
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:$app "$final_path"
+ynh_setup_source --dest_dir="$install_dir"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R "$app:$app" "$install_dir"
+(
+    cd "$install_dir"
+    ynh_exec_as "$app" "$ynh_node_load_PATH" "$ynh_npm" i
+)
 
-pushd "$final_path" >/dev/null || ynh_die
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm i
-popd >/dev/null || ynh_die
-
+#=================================================
+# SPECIFIC SETUP
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-ynh_add_config --template="../conf/config.yaml" --destination="$final_path/config.yaml"
-ynh_store_file_checksum --file="$final_path/config.yaml"
-chmod 400 "$final_path/config.yaml"
-chown $app:$app "$final_path/config.yaml"
+ynh_add_config --template="../conf/config.yaml" --destination="$install_dir/config.yaml"
+
+chmod 400 "$install_dir/config.yaml"
+chown "$app:$app" "$install_dir/config.yaml"
 
 # Generate the password encryption key
-openssl genpkey -out $final_path/passkey.pem -outform PEM -algorithm RSA -pkeyopt rsa_keygen_bits:2048
-chmod 400 "$final_path/passkey.pem"
-chown $app:$app "$final_path/passkey.pem"
+openssl genpkey -out "$install_dir/passkey.pem" -outform PEM -algorithm RSA -pkeyopt rsa_keygen_bits:2048
+chmod 400 "$install_dir/passkey.pem"
+chown "$app:$app" "$install_dir/passkey.pem"
 
 #=================================================
 # REGISTER SYNAPSE APP-SERVICE
 #=================================================
+ynh_script_progression --message="Registering Synapse app-service" --weight=1
 
 __ynh_register_matrix_app_service
 
@@ -155,17 +102,17 @@ ynh_add_systemd_config
 ynh_script_progression --message="Configuring log rotation..." --weight=1
 
 # Use logrotate to manage application logfile(s)
-ynh_use_logrotate --specific_user $app/$app
+ynh_use_logrotate --logfile "/var/log/$app/$app.log" --nonappend --specific_user "$app/$app"
 chmod -R 600 "/var/log/$app"
 chmod 700 "/var/log/$app"
-chown -R $app:$app /var/log/$app
+chown -R "$app:$app" "/var/log/$app"
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-yunohost service add $app --description="$app daemon for bridging IRC and Matrix." --log="/var/log/$app/$app.log"
+yunohost service add $app --description="$app daemon for bridging IRC and Matrix messages." --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
@@ -173,10 +120,10 @@ yunohost service add $app --description="$app daemon for bridging IRC and Matrix
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log" --line_match="Error: No IRC servers specified."
+ynh_systemd_action --service_name="$app" --action="start" --log_path="/var/log/$app/$app.log" --line_match="Error: No IRC servers specified."
 
 ynh_print_warn "The bridge is successfully configured but non working yet!"
-ynh_print_warn "You need to edit the file $final_path/config.yaml to add IRC networks."
+ynh_print_warn "You need to edit the file $install_dir/config.yaml to add IRC networks."
 
 #=================================================
 # END OF SCRIPT

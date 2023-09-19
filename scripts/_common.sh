@@ -4,9 +4,6 @@
 # COMMON VARIABLES
 #=================================================
 
-# dependencies used by the app
-pkg_dependencies="postgresql"
-
 nodejs_version=18
 
 #=================================================
@@ -14,18 +11,20 @@ nodejs_version=18
 #=================================================
 
 __ynh_register_synapse_app_service() {
-    $final_path/bin/matrix-appservice-irc -r \
-        -c $final_path/config.yaml \
+    "$install_dir/bin/matrix-appservice-irc" -r \
+        -c "$install_dir/config.yaml" \
         -u "http://localhost:$port" \
-        -f $final_path/appservice-registration-irc.yaml
-
-    ynh_store_file_checksum --file=$final_path/appservice-registration-irc.yaml
+        -f "$install_dir/appservice-registration-irc.yaml"
 
     # This appservice needs it to be duplicated…
-    cp $final_path/appservice-registration-irc.yaml /etc/matrix-$synapse_instance/app-service/$app.yaml
+    cp "$install_dir/appservice-registration-irc.yaml" \
+        "/etc/matrix-$synapse_instance/app-service/$app.yaml"
 
-    /opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh \
-        || ynh_die "Synapse can't restart with the appservice configuration"
+    "/opt/yunohost/matrix-$synapse_instance/update_synapse_for_appservice.sh" \
+        || ynh_die --message="Synapse can't restart with the appservice configuration"
+
+    ynh_store_file_checksum --file="/etc/matrix-$synapse_instance/app-service/$app.yaml"
+    ynh_store_file_checksum --file="$install_dir/appservice-registration-irc.yaml"
 }
 
 # TODO:

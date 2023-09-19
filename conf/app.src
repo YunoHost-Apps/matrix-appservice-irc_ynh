@@ -1,7 +1,0 @@
-SOURCE_URL=https://github.com/matrix-org/matrix-appservice-irc/archive/refs/tags/0.36.0.tar.gz
-SOURCE_SUM=95f2f5288d2347121e399dff1136e854932db5b3a8ff61a1a7cf5c9fd2729988
-SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=tar.gz
-SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=
-SOURCE_EXTRACT=true
