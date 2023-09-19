@@ -29,12 +29,6 @@ Elle est hautement configurable, et est actuellement uilisée sur matrix.org pou
 
 
 **Version incluse :** 0.36.0~ynh1
-## Avertissements / informations importantes
-
-ATTENTION : Cette passerelle requiert une configuration supplémentaire dans son fichier de configuration.
-
-* Vous avez besoin d'un serveur local Matrix-Synapse (appli Yunohost disponible)
-
 ## Documentations et ressources
 
 * Documentation officielle utilisateur : <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>

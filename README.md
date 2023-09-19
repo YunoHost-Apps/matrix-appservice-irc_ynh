@@ -29,12 +29,6 @@ It is highly configurable and is currently used on the matrix.org homeserver to 
 
 
 **Shipped version:** 0.36.0~ynh1
-## Disclaimers / important information
-
-WARNING: This bridge requires additional configuration in the configuration file.
-
-* You need a local Matrix-synapse server (Yunohost app available)
-
 ## Documentation and resources
 
 * Official user documentation: <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>
