@@ -16,14 +16,6 @@ ynh_app_setting_set --app="$app" --key=server_name --value="$server_name"
 ynh_app_setting_set --app="$app" --key=domain --value="$domain"
 synapse_db_name="matrix_$synapse_instance"
 
-# This is needed to convert the value from the manifest to a valid value for the config.yaml file.
-# Without this the install script will throw a warning.
-if [ "$encryption" -eq "1" ]; then
-    encryption="true"
-else
-    encryption="false"
-fi
-
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================

@@ -55,15 +55,6 @@ ram.runtime = "1024M"
     help.fr = "Si true, le robot groupera les conversations IRC dans une communauté Matrix.Pas nécessaire si vous avez réglé Synapse pour qu'il autorise les non-admin à créer des communautés."
     default = true
 
-    # TODO: is it supported?
-    # [install.encryption]
-    # ask.en = "Enable end-to-bridge encryption?"
-    # ask.fr = "Activer le chiffrement entre Synapse et le bridge ?"
-    # type = "boolean"
-    # help.en = "Only activate if you know the prerequisites and constraints related to E2B."
-    # help.fr = "N'activer que si vous connaissez les prérequis et constraintes liées à E2B."
-    # default = true
-
     [install.botadmin]
     ask.en = "Choose the Matrix account administrator of the IRC bot"
     ask.fr = "Choisissez le compte Matrix administrateur du robot IRC"
