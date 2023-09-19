@@ -34,7 +34,6 @@ It is highly configurable and is currently used on the matrix.org homeserver to 
 WARNING: This bridge requires additional configuration in the configuration file.
 
 * You need a local Matrix-synapse server (Yunohost app available)
-* No connection to the Yunohost LDAP
 
 ## Documentation and resources
 
