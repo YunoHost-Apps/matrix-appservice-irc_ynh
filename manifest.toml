@@ -7,7 +7,7 @@ name = "Matrix IRC Bridge"
 description.en = "Matrix bridge for IRC"
 description.fr = "Passerelle Matrix pour IRC"
 
-version = "0.36.0~ynh1"
+version = "2.0.0~ynh1"
 
 maintainers = ["Salamandar"]
 
@@ -81,8 +81,8 @@ ram.runtime = "1024M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/matrix-org/matrix-appservice-irc/archive/refs/tags/1.0.1.tar.gz"
-    sha256 = "ac58ca1e7ed1a496b0ec69cd7079f67c2e3ad5007f24bdacd63fc992cc442ce3"
+    url = "https://github.com/matrix-org/matrix-appservice-irc/archive/refs/tags/2.0.0.tar.gz"
+    sha256 = "f17d0c1fcb289edc3aa6878010a624ddeb6cff884d2496137a0f984c331a8d21"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
