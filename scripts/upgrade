@@ -10,50 +10,48 @@ source /usr/share/yunohost/helpers
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping $app's systemd service..." --weight=1
+ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemd_action --service_name="$app" --action="stop" --log_path="/var/log/$app/$app.log"
+ynh_systemctl --service="$app" --action="stop"
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-# ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+# ynh_script_progression "Ensuring downward compatibility..."
 
 #=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Updating NodeJS..." --weight=1
+ynh_script_progression "Updating NodeJS..."
 
-ynh_install_nodejs --nodejs_version=$nodejs_version
-ynh_use_nodejs
+ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Upgrading source files..." --weight=1
+ynh_script_progression "Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir" --full_replace=1 \
+ynh_setup_source --dest_dir="$install_dir" --full_replace \
     --keep="config.yaml passkey.pem appservice-registration-irc.yaml"
 
-chmod 750 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R "$app:www-data" "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R "$app:www-data" "$install_dir"
 #=================================================
 # Build
 #=================================================
-ynh_script_progression --message="Upgrading the app..." --weight=1
+ynh_script_progression "Upgrading the app..."
 
 (
     cd "$install_dir"
-    ynh_exec_as "$app" "$ynh_node_load_PATH" "$ynh_npm" i
+    ynh_exec_as_app node_load_PATH" npm i
 )
 
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Updating a configuration file..." --weight=1
+ynh_script_progression "Updating configuration..."
 
 configured_servers=$(python3 -c "import yaml
 with open('$install_dir/config.yaml') as c: c = yaml.load(c, Loader=yaml.SafeLoader)
@@ -61,7 +59,7 @@ print(yaml.dump(c['ircService']['servers']))")
 
 ### Same as during install
 
-ynh_add_config --template="config.yaml" --destination="$install_dir/config.yaml"
+ynh_config_add --template="config.yaml" --destination="$install_dir/config.yaml"
 
 # Try to recover the previously configured IRC servers.
 python3 -c "import yaml
@@ -71,38 +69,38 @@ c['ircService']['servers'] = servers
 print(yaml.dump(c))" > "$install_dir/config.yaml.temp"
 mv "$install_dir/config.yaml.temp" "$install_dir/config.yaml"
 
-chmod 400 "$install_dir/config.yaml"
-chown "$app:$app" "$install_dir/config.yaml"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/config.yaml"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown "$app:$app" "$install_dir/config.yaml"
 
 #=================================================
 # REGISTER SYNAPSE APP-SERVICE
 #=================================================
 
-ynh_backup_if_checksum_is_different --file="$install_dir/appservice-registration-irc.yaml"
+ynh_backup_if_checksum_is_different "$install_dir/appservice-registration-irc.yaml"
 
 __ynh_register_matrix_app_service
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+ynh_script_progression "Upgrading system configurations related to $app..."
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 yunohost service add "$app" --description="$app daemon for bridging IRC and Matrix messages." --log="/var/log/$app/$app.log"
 
 # Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate --specific_user "$app/$app"
+ynh_config_add_logrotate  "$app/$app"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting $app's systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name="$app" --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemctl --service="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"
