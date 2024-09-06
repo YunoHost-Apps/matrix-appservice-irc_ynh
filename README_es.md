@@ -28,7 +28,7 @@ It is highly configurable and is currently used on the matrix.org homeserver to 
 - Well-formated replies
 
 
-**Versión actual:** 2.0.1~ynh1
+**Versión actual:** 3.0.1~ynh1
 ## Documentaciones y recursos
 
 - Documentación usuario oficial: <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>
