@@ -28,7 +28,7 @@ It is highly configurable and is currently used on the matrix.org homeserver to 
 - Well-formated replies
 
 
-**Versión actual:** 2.0.1~ynh1
+**Versión actual:** 3.0.2~ynh1
 ## Documentaciones y recursos
 
 - Documentación usuario oficial: <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>
@@ -39,7 +39,7 @@ It is highly configurable and is currently used on the matrix.org homeserver to 
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/matrix-appservice-irc_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/matrix-appservice-irc_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
