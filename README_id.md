@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # Matrix IRC Bridge untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/matrix-appservice-irc.svg)](https://ci-apps.yunohost.org/ci/apps/matrix-appservice-irc/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/matrix-appservice-irc)](https://ci-apps.yunohost.org/ci/apps/matrix-appservice-irc/)
+![Status kerja](https://apps.yunohost.org/badge/state/matrix-appservice-irc)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/matrix-appservice-irc)
 
 [![Pasang Matrix IRC Bridge dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matrix-appservice-irc)
 
@@ -28,7 +30,7 @@ It is highly configurable and is currently used on the matrix.org homeserver to 
 - Well-formated replies
 
 
-**Versi terkirim:** 2.0.1~ynh1
+**Versi terkirim:** 3.0.5~ynh1
 ## Dokumentasi dan sumber daya
 
 - Dokumentasi pengguna resmi: <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>

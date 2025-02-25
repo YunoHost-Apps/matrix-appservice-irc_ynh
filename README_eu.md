@@ -5,7 +5,9 @@ EZ editatu eskuz.
 
 # Matrix IRC Bridge YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/matrix-appservice-irc.svg)](https://ci-apps.yunohost.org/ci/apps/matrix-appservice-irc/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/matrix-appservice-irc)](https://ci-apps.yunohost.org/ci/apps/matrix-appservice-irc/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/matrix-appservice-irc)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/matrix-appservice-irc)
 
 [![Instalatu Matrix IRC Bridge YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matrix-appservice-irc)
 
@@ -28,7 +30,7 @@ It is highly configurable and is currently used on the matrix.org homeserver to 
 - Well-formated replies
 
 
-**Paketatutako bertsioa:** 2.0.1~ynh1
+**Paketatutako bertsioa:** 3.0.5~ynh1
 ## Dokumentazioa eta baliabideak
 
 - Erabiltzaileen dokumentazio ofiziala: <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>

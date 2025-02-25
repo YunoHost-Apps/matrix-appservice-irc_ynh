@@ -5,7 +5,9 @@
 
 # YunoHost 上的 Matrix IRC Bridge
 
-[![集成程度](https://dash.yunohost.org/integration/matrix-appservice-irc.svg)](https://ci-apps.yunohost.org/ci/apps/matrix-appservice-irc/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.maintain.svg)
+[![集成程度](https://apps.yunohost.org/badge/integration/matrix-appservice-irc)](https://ci-apps.yunohost.org/ci/apps/matrix-appservice-irc/)
+![工作状态](https://apps.yunohost.org/badge/state/matrix-appservice-irc)
+![维护状态](https://apps.yunohost.org/badge/maintained/matrix-appservice-irc)
 
 [![使用 YunoHost 安装 Matrix IRC Bridge](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matrix-appservice-irc)
 
@@ -28,7 +30,7 @@ It is highly configurable and is currently used on the matrix.org homeserver to 
 - Well-formated replies
 
 
-**分发版本：** 2.0.1~ynh1
+**分发版本：** 3.0.5~ynh1
 ## 文档与资源
 
 - 官方用户文档： <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>

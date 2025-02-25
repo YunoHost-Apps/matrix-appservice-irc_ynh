@@ -5,7 +5,9 @@ Il NE doit PAS être modifié à la main.
 
 # Matrix IRC Bridge pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/matrix-appservice-irc.svg)](https://ci-apps.yunohost.org/ci/apps/matrix-appservice-irc/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/matrix-appservice-irc.maintain.svg)
+[![Niveau d’intégration](https://apps.yunohost.org/badge/integration/matrix-appservice-irc)](https://ci-apps.yunohost.org/ci/apps/matrix-appservice-irc/)
+![Statut du fonctionnement](https://apps.yunohost.org/badge/state/matrix-appservice-irc)
+![Statut de maintenance](https://apps.yunohost.org/badge/maintained/matrix-appservice-irc)
 
 [![Installer Matrix IRC Bridge avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=matrix-appservice-irc)
 
@@ -28,7 +30,7 @@ Elle est hautement configurable, et est actuellement uilisée sur matrix.org pou
 - Réponses formattées proprement
 
 
-**Version incluse :** 2.0.1~ynh1
+**Version incluse :** 3.0.5~ynh1
 ## Documentations et ressources
 
 - Documentation officielle utilisateur : <https://matrix-org.github.io/matrix-appservice-irc/latest/usage>
