@@ -38,8 +38,7 @@ ynh_script_progression "Upgrading the app..."
 (
     cd "$install_dir"
     ynh_hide_warnings ynh_exec_as_app npm i
-    $nodejs_dir/node src/generate-signing-key.js > signingkey.jwk
-
+    $nodejs_dir/node src/generate-signing-key.js > $install_dir/signingkey.jwk
 )
 
 #=================================================

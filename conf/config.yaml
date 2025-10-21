@@ -606,7 +606,7 @@ ircService:
   mediaProxy:
     # To generate a .jwk file:
     # $ node src/generate-signing-key.js > signingkey.jwk
-    signingKeyPath: "signingkey.jwk"
+    signingKeyPath: "__INSTALL_DIR__/signingkey.jwk"
     # How long should the generated URLs be valid for
     ttlSeconds: 3600
     # The port for the media proxy to listen on
