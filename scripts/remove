@@ -23,8 +23,6 @@ ynh_config_remove_systemd
 # Remove the app-specific logrotate config
 ynh_config_remove_logrotate
 
-ynh_nodejs_remove
-
 # Remove a directory securely
 ynh_safe_rm "/etc/matrix-$synapse_instance/app-service/$app.yaml"
 "/var/www/$synapse_instance/update_synapse_for_appservice.sh" || ynh_die "Synapse can't restart with the appservice configuration"

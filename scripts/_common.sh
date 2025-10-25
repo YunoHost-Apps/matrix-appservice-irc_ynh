@@ -4,8 +4,6 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-nodejs_version=20
-
 __ynh_register_synapse_app_service() {
     "$install_dir/bin/matrix-appservice-irc" -r \
         -c "$install_dir/config.yaml" \

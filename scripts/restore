@@ -14,13 +14,6 @@ synapse_db_name="matrix_$synapse_instance"
 bot_synapse_db_user="@$botname:$server_name"
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Reinstalling NodeJS..."
-
-ynh_nodejs_install
-
-#=================================================
 # RESTORE THE APP MAIN DIR
 #=================================================
 ynh_script_progression "Restoring the app main directory..."
