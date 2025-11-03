@@ -28,11 +28,15 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace \
 #=================================================
 ynh_script_progression "Upgrading the app..."
 
-(
-    cd "$install_dir"
-    ynh_hide_warnings ynh_exec_as_app npm i
+pushd "$install_dir"
+    corepack enable
+    ynh_hide_warnings corepack prepare yarn@latest --activate
+    ynh_hide_warnings ynh_exec_as_app yarn --strict-semver --frozen-lockfile
+    ynh_hide_warnings ynh_exec_as_app yarn cache clean 
+    ynh_hide_warnings ynh_exec_as_app yarn install --production
+
     $nodejs_dir/node src/generate-signing-key.js > $install_dir/signingkey.jwk
-)
+popd
 
 #=================================================
 # UPDATE A CONFIG FILE
