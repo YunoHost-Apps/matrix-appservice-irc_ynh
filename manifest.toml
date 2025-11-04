@@ -7,7 +7,7 @@ name = "Matrix IRC Bridge"
 description.en = "Matrix bridge for IRC"
 description.fr = "Passerelle Matrix pour IRC"
 
-version = "2.0.1~ynh1"
+version = "4.0.0~ynh1"
 
 maintainers = ["Salamandar"]
 
@@ -18,7 +18,8 @@ admindoc = "https://matrix-org.github.io/matrix-appservice-irc/latest/bridge_set
 userdoc = "https://matrix-org.github.io/matrix-appservice-irc/latest/usage"
 
 [integration]
-yunohost = ">= 11.1"
+yunohost = ">= 11.2.18"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 ldap = false
@@ -81,8 +82,8 @@ ram.runtime = "1024M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/matrix-org/matrix-appservice-irc/archive/refs/tags/2.0.1.tar.gz"
-    sha256 = "03dd7b40d2fb2e82566e0c1b1e28f0ec439aba01518f209b8bca12f8597fd226"
+    url = "https://github.com/matrix-org/matrix-appservice-irc/archive/refs/tags/4.0.0.tar.gz"
+    sha256 = "905171997f728c3427e56944a9e2e537ec13c71def249a144125874d50d2e6e9"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
@@ -103,9 +104,8 @@ ram.runtime = "1024M"
         "postgresql",
     ]
 
-    extras.yarn.repo = "deb https://dl.yarnpkg.com/debian/ stable main"
-    extras.yarn.key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
-    extras.yarn.packages = "yarn"
-
     [resources.database]
     type = "postgresql"
+
+    [resources.nodejs]
+    version = "22"
