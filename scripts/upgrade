@@ -35,7 +35,7 @@ pushd "$install_dir"
     ynh_hide_warnings ynh_exec_as_app yarn cache clean 
     ynh_hide_warnings ynh_exec_as_app yarn install --production
 
-    $nodejs_dir/node src/generate-signing-key.js > "$install_dir/signingkey.jwk"
+    $nodejs_dir/node src/generate-signing-key.js | tee "$install_dir/signingkey.jwk"
 popd
 
 #=================================================
