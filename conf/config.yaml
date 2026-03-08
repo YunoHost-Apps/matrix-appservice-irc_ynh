@@ -447,7 +447,7 @@ ircService:
     port: 1113
     # The address to listen on for incoming ident requests.
     # Default: 0.0.0.0
-    address: "::"
+    address: "127.0.0.1"
 
   # Encoding fallback - which text encoding to try if text is not UTF-8. Default: not set.
   # List of supported encodings: https://www.npmjs.com/package/iconv#supported-encodings
